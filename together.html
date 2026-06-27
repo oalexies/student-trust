@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<!-- SCHOOL E-VOTING SYSTEM - ENHANCED WITH ANIMATIONS -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>SCHOOL E-VOTING SYSTEM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root {
+  --primary:#6366f1;
+  --secondary:#8b5cf6;
+  --accent:#ec4899;
+  --success:#10b981;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --bg:#0f172a;
+  --bg-light:#1e293b;
+  --panel:#1a1f35;
+  --text:#f8fafc;
+  --text-muted:#cbd5e1;
+  --border:#334155;
+  --hover:#2d3748;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', system-ui;
+  background:linear-gradient(135deg, #0f172a 0%, #1a1f35 50%, #0f1626 100%);
+  color:var(--text);
+  line-height:1.6;
+  min-height:100vh;
+}
+
+header{
+  padding:28px 24px;
+  background:linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  box-shadow:0 8px 32px rgba(99, 102, 241, 0.3);
+  border-bottom:3px solid var(--accent);
+}
+
+header h1{
+  margin:0;
+  font-size:32px;
+  font-weight:800;
+  color:white;
+  text-shadow:0 2px 4px rgba(0,0,0,0.2);
+  letter-spacing:-0.5px;
+}
+
+header p{
+  margin:6px 0 0 0;
+  color:rgba(255,255,255,0.9);
+  font-size:14px;
+  font-weight:500;
+}
+
+main{
+  max-width:1400px;
+  margin:28px auto;
+  padding:0 16px 40px;
+}
+
+.tabs{
+  display:flex;
+  gap:12px;
+  margin-bottom:28px;
+  border-bottom:2px solid var(--border);
+  flex-wrap:wrap;
+}
+
+.tab-btn{
+  padding:14px 24px;
+  border:none;
+  background:transparent;
+  color:var(--text-muted);
+  cursor:pointer;
+  font-size:15px;
+  font-weight:700;
+  border-bottom:4px solid transparent;
+  transition:all 0.3s ease;
+  position:relative;
+  top:2px;
+}
+
+.tab-btn:hover{
+  color:var(--primary);
+}
+
+.tab-btn.active{
+  color:var(--accent);
+  border-bottom-color:var(--accent);
+  background:rgba(236, 72, 153, 0.05);
+}
+
+.tab-content{
+  display:none;
+  animation:fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.tab-content.active{
+  display:block;
+}
+
+.grid{
+  display:grid;
+  gap:24px;
+}
+
+@media(min-width:1000px){
+  .grid{grid-template-columns:1fr 1fr}
+}
+
+.card{
+  background:linear-gradient(135deg, var(--panel) 0%, #212738 100%);
+  border:2px solid var(--border);
+  border-radius:16px;
+  padding:24px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);
+  transition:all 0.3s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:3px;
+  background:linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+}
+
+.card:hover{
+  border-color:var(--primary);
+  box-shadow:0 12px 32px rgba(99, 102, 241, 0.2);
+  transform:translateY(-2px);
+}
+
+.card h2{
+  margin:0 0 18px 0;
+  font-size:20px;
+  font-weight:800;
+  color:var(--text);
+  border-bottom:2px solid var(--primary);
+  padding-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.card h2::before{
+  display:inline-block;
+  width:5px;
+  height:24px;
+  background:linear-gradient(180deg, var(--primary), var(--accent));
+  border-radius:3px;
+}
+
+.field{
+  margin-bottom:18px;
+}
+
+label{
+  font-size:12px;
+  color:var(--primary);
+  font-weight:800;
+  display:block;
+  margin-bottom:8px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+input, select{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:2px solid var(--border);
+  background:var(--bg-light);
+  color:var(--text);
+  font-size:14px;
+  font-weight:500;
+  transition:all 0.2s ease;
+}
+
+input:focus, select:focus{
+  outline:none;
+  border-color:var(--primary);
+  background:rgba(99, 102, 241, 0.05);
+  box-shadow:0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+input::placeholder{
+  color:var(--text-muted);
+}
+
+.btn{
+  padding:12px 20px;
+  border-radius:10px;
+  border:2px solid transparent;
+  background:var(--bg-light);
+  color:var(--text);
+  cursor:pointer;
+  font-weight:700;
+  font-size:14px;
+  transition:all 0.2s ease;
+  display:inline-block;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 16px rgba(0,0,0,0.3);
+}
+
+.btn:active{
+  transform:translateY(-1px);
+}
+
+.btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.btn.primary{
+  background:linear-gradient(135deg, var(--primary), var(--secondary));
+  color:white;
+  border-color:var(--primary);
+}
+
+.btn.primary:hover{
+  box-shadow:0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn.danger{
+  background:linear-gradient(135deg, var(--danger), #dc2626);
+  color:white;
+  border-color:var(--danger);
+}
+
+.btn.danger:hover{
+  box-shadow:0 8px 20px rgba(239, 68, 68, 0.4);
+}
+
+.btn.warning{
+  background:linear-gradient(135deg, var(--warning), #d97706);
+  color:white;
+  border-color:var(--warning);
+}
+
+.btn.warning:hover{
+  box-shadow:0 8px 20px rgba(245, 158, 11, 0.4);
+}
+
+.row{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.list{
+  display:grid;
+  gap:12px;
+}
+
+.item{
+  background:var(--bg-light);
+  border:2px solid var(--border);
+  border-radius:10px;
+  padding:14px;
+  transition:all 0.2s ease;
+}
+
+.item:hover{
+  border-color:var(--primary);
+  background:rgba(99, 102, 241, 0.05);
+}
+
+.candidate-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  border:2px solid var(--border);
+}
+
+.candidate-item input[type="radio"]{
+  width:auto;
+  cursor:pointer;
+  margin:0;
+  accent-color:var(--primary);
+}
+
+.candidate-item:hover{
+  background:rgba(99, 102, 241, 0.05);
+  border-color:var(--primary);
+}
+
+.candidate-item input[type="radio"]:checked ~ .candidate-info{
+  color:var(--accent);
+}
+
+.candidate-info{
+  flex:1;
+  font-weight:700;
+  font-size:15px;
+}
+
+.candidate-class{
+  font-size:12px;
+  color:var(--text-muted);
+  font-weight:600;
+  margin-top:4px;
+}
+
+.muted{color:var(--text-muted);font-size:13px}
+.success{color:var(--success)}
+.error{color:var(--danger)}
+.warning{color:var(--warning)}
+.mono{font-family:'Courier New', monospace}
+
+.alert{
+  padding:16px 18px;
+  border-radius:10px;
+  margin-bottom:16px;
+  font-size:14px;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  font-weight:600;
+  border-left:4px solid;
+}
+
+.alert.success{
+  color:#10b981;
+  background:rgba(16, 185, 129, 0.1);
+  border-left-color:var(--success);
+}
+
+.alert.error{
+  color:#ef4444;
+  background:rgba(239, 68, 68, 0.1);
+  border-left-color:var(--danger);
+}
+
+.alert.warning{
+  color:#f59e0b;
+  background:rgba(245, 158, 11, 0.1);
+  border-left-color:var(--warning);
+}
+
+.alert.info{
+  color:var(--primary);
+  background:rgba(99, 102, 241, 0.1);
+  border-left-color:var(--primary);
+}
+
+.divider{
+  border:none;
+  border-top:2px dashed var(--border);
+  margin:24px 0;
+}
+
+.credential-box{
+  background:linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(99, 102, 241, 0.1));
+  border:2px solid var(--success);
+  border-radius:10px;
+  padding:16px;
+  margin:18px 0;
+  font-family:monospace;
+  word-break:break-all;
+}
+
+.credential-box .label{
+  color:var(--success);
+  font-size:11px;
+  text-transform:uppercase;
+  display:block;
+  margin-bottom:8px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.credential-box .value{
+  color:var(--success);
+  font-weight:800;
+  font-size:18px;
+  letter-spacing:1px;
+}
+
+.welcome-message{
+  background:linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(99, 102, 241, 0.1));
+  border:2px solid var(--accent);
+  border-radius:10px;
+  padding:16px;
+  margin:18px 0;
+  text-align:center;
+  color:var(--accent);
+  font-weight:700;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.tracker-box{
+  background:linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  border:2px solid var(--primary);
+  border-radius:10px;
+  padding:16px;
+  margin:18px 0;
+  font-family:monospace;
+  word-break:break-all;
+}
+
+.tracker-box .label{
+  color:var(--primary);
+  font-size:11px;
+  text-transform:uppercase;
+  display:block;
+  margin-bottom:8px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.tracker-box .value{
+  color:var(--primary);
+  font-weight:800;
+  font-size:16px;
+}
+
+.admin-lock{
+  background:linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.1));
+  border:2px solid var(--danger);
+  border-radius:10px;
+  padding:24px;
+  margin-bottom:16px;
+  text-align:center;
+}
+
+.admin-lock .lock-icon{
+  font-size:40px;
+  margin-bottom:12px;
+}
+
+.hidden{
+  display:none;
+}
+
+.results-grid{
+  display:grid;
+  gap:14px;
+  margin-top:16px;
+}
+
+.result-item{
+  background:linear-gradient(135deg, var(--bg-light), #212738);
+  border:2px solid var(--border);
+  border-radius:10px;
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition:all 0.2s ease;
+}
+
+.result-item:hover{
+  border-color:var(--primary);
+  box-shadow:0 6px 16px rgba(99, 102, 241, 0.15);
+}
+
+.result-item-info{
+  flex:1;
+}
+
+.result-name{
+  font-weight:800;
+  font-size:16px;
+}
+
+.result-class{
+  font-size:12px;
+  color:var(--text-muted);
+  margin-top:4px;
+}
+
+.result-count{
+  background:linear-gradient(135deg, var(--primary), var(--secondary));
+  color:white;
+  padding:10px 18px;
+  border-radius:8px;
+  font-weight:800;
+  font-size:20px;
+  min-width:60px;
+  text-align:center;
+  box-shadow:0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.runner-up-section{
+  background:linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(236, 72, 153, 0.1));
+  border:2px solid var(--warning);
+  border-radius:10px;
+  padding:16px;
+  margin-top:12px;
+}
+
+.runner-up-label{
+  color:var(--warning);
+  font-size:12px;
+  text-transform:uppercase;
+  font-weight:800;
+  margin-bottom:8px;
+  letter-spacing:1px;
+}
+
+.runner-up-content{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.runner-up-name{
+  font-weight:800;
+  font-size:16px;
+  color:var(--text);
+}
+
+.runner-up-class{
+  font-size:12px;
+  color:var(--text-muted);
+  margin-top:4px;
+}
+
+.runner-up-votes{
+  font-size:24px;
+  font-weight:800;
+  color:var(--warning);
+}
+
+.refresh-btn{
+  margin-top:14px;
+  width:100%;
+}
+
+.student-image{
+  width:100%;
+  max-width:250px;
+  height:auto;
+  margin:20px auto;
+  display:block;
+  border-radius:12px;
+  border:2px solid var(--border);
+  box-shadow:0 4px 16px rgba(99, 102, 241, 0.2);
+}
+
+/* LIVE BOARD ANIMATIONS */
+@keyframes voteConfetti {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.8), 0 0 60px rgba(139, 92, 246, 0.5);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes rainbowShift {
+  0% {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  }
+  25% {
+    background: linear-gradient(135deg, #ffd93d, #6bcf7f);
+  }
+  50% {
+    background: linear-gradient(135deg, #4d96ff, #6bcf7f);
+  }
+  75% {
+    background: linear-gradient(135deg, #e83e8c, #fd7e14);
+  }
+  100% {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  }
+}
+
+.vote-animation {
+  animation: voteConfetti 1.5s ease-out forwards;
+  position: fixed;
+  font-size: 40px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.live-stats-container {
+  position: relative;
+}
+
+.vote-counter {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.position-card {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.position-card.new-vote {
+  animation: scaleIn 0.4s ease-out, bounce 0.6s ease-out 0.4s !important;
+}
+
+.total-votes-display {
+  animation: pulseGlow 1.5s ease-in-out infinite;
+}
+
+.celebration-banner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  animation: scaleIn 0.5s ease-out, bounce 0.8s ease-out;
+  z-index: 10000;
+  pointer-events: none;
+  animation: slideInUp 0.6s ease-out;
+}
+
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  animation: voteConfetti 2s ease-out forwards;
+}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+  header h1{font-size:28px}
+}
+
+@media(max-width:600px){
+  header{padding:20px 16px}
+  main{padding:0 12px 32px}
+  .card{padding:18px}
+  .btn{padding:10px 16px;font-size:12px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🗳️ SCHOOL E-VOTING SYSTEM</h1>
+  <p>STUDENT TRUST (DEMOCRACY IN YOUNG CITIZEN)</p>
+</header>
+
+<main>
+
+<!-- TAB NAVIGATION -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab(event, 'student')">🗳️ Cast Vote</button>
+  <button class="tab-btn" onclick="switchTab(event, 'board')">📊 Live Board</button>
+  <button class="tab-btn" onclick="switchTab(event, 'admin')">🔐 Admin</button>
+</div>
+
+<!-- STUDENT TAB -->
+<div id="student" class="tab-content active">
+  <div class="grid">
+    <section class="card">
+      <h2>[Welcome to the safe, secure and transparent system - Vote with confidence as a smart and validate voter]</h2>
+      
+      <div class="field">
+        <label for="studentId">Student ID</label>
+        <input id="studentId" type="text" placeholder="Enter Student ID">
+      </div>
+
+      <button class="btn primary" id="issueBtn" style="width:100%">Get Credential</button>
+      
+      <div id="eligibilityMsg"></div>
+
+      <div id="ballot" class="hidden">
+        <div class="credential-box">
+          <span class="label">✓ Your Credential</span>
+          <span class="value" id="cred">XXXXX</span>
+        </div>
+
+        <h3 style="margin:16px 0 14px 0;font-size:16px;font-weight:800">Select Your Candidates</h3>
+        
+        <div class="post-section">
+          <div class="post-title">👑 HEAD GIRL (S5)</div>
+          <div class="list">
+            <label class="item candidate-item">
+              <input type="radio" name="HEAD_GIRL" value="Aber Prisca">
+              <span class="candidate-info"><div>Aber Prisca</div><div class="candidate-class">S5</div></span>
+            </label>
+            <label class="item candidate-item">
+              <input type="radio" name="HEAD_GIRL" value="Joanita Ameri">
+              <span class="candidate-info"><div>Joanita Ameri</div><div class="candidate-class">S5</div></span>
+            </label>
+            <label class="item candidate-item">
+              <input type="radio" name="HEAD_GIRL" value="Tracy Teddy">
+              <span class="candidate-info"><div>Tracy Teddy</div><div class="candidate-class">S5</div></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="post-section">
+          <div class="post-title">🌟 ASSISTANT HEAD GIRL (S3)</div>
+          <div class="list">
+            <label class="item candidate-item">
+              <input type="radio" name="ASS_HEAD_GIRL" value="Juan Scovia">
+              <span class="candidate-info"><div>Juan Scovia</div><div class="candidate-class">S3</div></span>
+            </label>
+            <label class="item candidate-item">
+              <input type="radio" name="ASS_HEAD_GIRL" value="Mazira Jane">
+              <span class="candidate-info"><div>Mazira Jane</div><div class="candidate-class">S3</div></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="post-section">
+          <div class="post-title">🏆 UNSA PRESIDENT (S5)</div>
+          <div class="list">
+            <label class="item candidate-item">
+              <input type="radio" name="UNSA_PRESIDENT" value="Pamela Grace">
+              <span class="candidate-info"><div>Pamela Grace</div><div class="candidate-class">S5</div></span>
+            </label>
+            <label class="item candidate-item">
+              <input type="radio" name="UNSA_PRESIDENT" value="Agnes Joyce">
+              <span class="candidate-info"><div>Agnes Joyce</div><div class="candidate-class">S5</div></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="post-section">
+          <div class="post-title">🎤 UNSA SPEAKER (S3)</div>
+          <div class="list">
+            <label class="item candidate-item">
+              <input type="radio" name="UNSA_SPEAKER" value="Morio Lydia">
+              <span class="candidate-info"><div>Morio Lydia</div><div class="candidate-class">S3</div></span>
+            </label>
+            <label class="item candidate-item">
+              <input type="radio" name="UNSA_SPEAKER" value="Drabaa Sphie">
+              <span class="candidate-info"><div>Drabaa Sphie</div><div class="candidate-class">S3</div></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="post-section">
+          <div class="post-title">⚕️ HEALTH PREFECT (S5)</div>
+          <div class="list">
+            <label class="item candidate-item">
+              <input type="radio" name="HEALTH_PREFECT" value="Muraa Brenda">
+              <span class="candidate-info"><div>Muraa Brenda</div><div class="candidate-class">S5</div></span>
+            </label>
+            <label class="item candidate-item">
+              <input type="radio" name="HEALTH_PREFECT" value="Bakoru Juliet">
+              <span class="candidate-info"><div>Bakoru Juliet</div><div class="candidate-class">S5</div></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="post-section">
+          <div class="post-title">🏥 VICE HEALTH PREFECT (S3)</div>
+          <div class="list">
+            <label class="item candidate-item">
+              <input type="radio" name="VICE_HEALTH_PREFECT" value="Atimaku Grace">
+              <span class="candidate-info"><div>Atimaku Grace</div><div class="candidate-class">S3</div></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="post-section">
+          <div class="post-title">📖 EDUCATION &amp; DISCIPLINE (S5)</div>
+          <div class="list">
+            <label class="item candidate-item">
+              <input type="radio" name="EDUCATION_DISCIPLINE" value="Andrea Atonia">
+              <span class="candidate-info"><div>Andrea Atonia</div><div class="candidate-class">S5</div></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="post-section">
+          <div class="post-title">📚 VICE EDUCATION &amp; DISCIPLINE (S3)</div>
+          <div class="list">
+            <label class="item candidate-item">
+              <input type="radio" name="VICE_EDUCATION_DISCIPLINE" value="Martha Mukisa">
+              <span class="candidate-info"><div>Martha Mukisa</div><div class="candidate-class">S3</div></span>
+            </label>
+          </div>
+        </div>
+
+        <button class="btn primary" id="castBtn" style="margin-top:18px;width:100%">Cast Vote</button>
+        
+        <div id="castMsg"></div>
+
+        <div id="receipt" class="hidden">
+          <div class="tracker-box">
+            <span class="label">✓ Vote Tracker</span>
+            <span class="value" id="tracker"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Election Status</h2>
+      <div id="statusBox"></div>
+    </section>
+  </div>
+</div>
+
+<!-- PUBLIC BOARD TAB -->
+<div id="board" class="tab-content">
+  <div id="confetti-container" class="confetti-container"></div>
+  <div class="grid">
+    <section class="card">
+      <h2>🎉 Live Statistics</h2>
+      <div class="live-stats-container">
+        <div class="total-votes-display vote-counter" style="font-size:40px;font-weight:800;color:var(--primary);margin-bottom:10px" id="totalVotesDisplay">0 Votes</div>
+        <div style="font-size:14px;color:var(--success);margin-bottom:16px;font-weight:700">✨ Live updates powered by voter enthusiasm! ✨</div>
+        <div id="statsContent"></div>
+      </div>
+      <button class="btn primary refresh-btn" id="refreshBoardBtn">🔄 Refresh Board</button>
+    </section>
+
+    <section class="card">
+      <h2>Vote Verification</h2>
+      <div class="field">
+        <label>Search Tracker ID</label>
+        <input id="trackerSearch" type="text" placeholder="Paste tracker ID">
+        <button class="btn primary" id="searchBtn" style="margin-top:10px;width:100%">Verify</button>
+      </div>
+      <div id="searchResult"></div>
+    </section>
+  </div>
+</div>
+
+<!-- ADMIN TAB -->
+<div id="admin" class="tab-content">
+  <section class="card">
+    <h2>Admin Control</h2>
+    
+    <div class="admin-lock" id="adminLock">
+      <div class="lock-icon">🔐</div>
+      <p style="font-weight:800">Admin Authentication</p>
+      <div class="field">
+        <label>Password</label>
+        <input id="adminPass" type="password" placeholder="Enter password">
+      </div>
+      <button class="btn warning" id="unlockBtn" style="width:100%">Unlock</button>
+      <div id="authMsg"></div>
+    </div>
+
+    <div id="adminPanel" class="hidden">
+      <div class="alert success">✓ Admin Panel Unlocked</div>
+      <div class="row">
+        <button class="btn warning" id="closeBtn" style="flex:1">Close Election</button>
+        <button class="btn primary" id="tallyBtn" style="flex:1">Tally Results</button>
+      </div>
+      <p id="adminMsg" class="muted" style="margin-top:12px"></p>
+
+      <div id="resultsSection" class="hidden" style="margin-top:20px">
+        <h3>Final Results</h3>
+        <div id="results"></div>
+      </div>
+
+      <div class="row" style="margin-top:20px">
+        <button class="btn" id="auditBtn" style="flex:1">Audit Log</button>
+        <button class="btn danger" id="resetBtn" style="flex:1">Reset</button>
+      </div>
+
+      <div id="auditLog" class="hidden" style="margin-top:20px">
+        <h3>Audit Trail</h3>
+        <div id="auditContent"></div>
+      </div>
+
+      <button class="btn danger" id="lockBtn" style="margin-top:20px;width:100%">Lock</button>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<script>
+const ADMIN_PASSWORD = "JORDAN";
+const positions = {
+  HEAD_GIRL: ["Aber Prisca", "Joanita Ameri", "Tracy Teddy"],
+  ASS_HEAD_GIRL: ["Juan Scovia", "Mazira Jane"],
+  UNSA_PRESIDENT: ["Pamela Grace", "Agnes Joyce"],
+  UNSA_SPEAKER: ["Morio Lydia", "Drabaa Sphie"],
+  HEALTH_PREFECT: ["Muraa Brenda", "Bakoru Juliet"],
+  VICE_HEALTH_PREFECT: ["Atimaku Grace"],
+  EDUCATION_DISCIPLINE: ["Andrea Atonia"],
+  VICE_EDUCATION_DISCIPLINE: ["Martha Mukisa"]
+};
+
+const candidateClass = {
+  "Aber Prisca": "S5", "Joanita Ameri": "S5", "Tracy Teddy": "S5",
+  "Juan Scovia": "S3", "Mazira Jane": "S3",
+  "Pamela Grace": "S5", "Agnes Joyce": "S5",
+  "Morio Lydia": "S3", "Drabaa Sphie": "S3",
+  "Muraa Brenda": "S5", "Bakoru Juliet": "S5",
+  "Atimaku Grace": "S3",
+  "Andrea Atonia": "S5",
+  "Martha Mukisa": "S3"
+};
+
+const positionLabels = {
+  HEAD_GIRL: "👑 HEAD GIRL",
+  ASS_HEAD_GIRL: "🌟 ASSISTANT HEAD GIRL",
+  UNSA_PRESIDENT: "🏆 UNSA PRESIDENT",
+  UNSA_SPEAKER: "🎤 UNSA SPEAKER",
+  HEALTH_PREFECT: "⚕️ HEALTH PREFECT",
+  VICE_HEALTH_PREFECT: "🏥 VICE HEALTH PREFECT",
+  EDUCATION_DISCIPLINE: "📖 EDUCATION &amp; DISCIPLINE",
+  VICE_EDUCATION_DISCIPLINE: "📚 VICE EDUCATION &amp; DISCIPLINE"
+};
+
+const celebrationEmojis = ["🎉", "🎊", "✨", "⭐", "🌟", "💫", "🔥", "👏", "🎈", "🏆"];
+
+const state = {
+  electionOpen: true,
+  registry: new Set(["STUDENT001", "STUDENT002", "STUDENT003", "STUDENT004", "STUDENT005"]),
+  issued: new Map(),
+  spent: new Set(),
+  board: [],
+  auditLog: []
+};
+
+function token() {
+  return Math.random().toString(36).substring(2, 10).toUpperCase();
+}
+
+function switchTab(event, tabName) {
+  document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+  document.getElementById(tabName).classList.add("active");
+  event.target.classList.add("active");
+  
+  if (tabName === "board") {
+    updateStats();
+  }
+}
+
+function showAlert(elementId, message, type) {
+  const el = document.getElementById(elementId);
+  if (el) el.innerHTML = `<div class="alert ${type}">${message}</div>`;
+}
+
+function logAudit(action, details) {
+  state.auditLog.push({ timestamp: new Date().toLocaleString(), action, details });
+}
+
+function updateStatusBox() {
+  const statusText = state.electionOpen ? "🟢 ELECTION OPEN" : "🔴 ELECTION CLOSED";
+  document.getElementById("statusBox").innerHTML = `
+    <div class="alert ${state.electionOpen ? 'success' : 'error'}">${statusText}</div>
+    <p class="muted">Total Votes: <span style="color:var(--primary)">${state.board.length}</span></p>
+  `;
+}
+
+// ANIMATION EFFECTS
+function createConfetti() {
+  const container = document.getElementById("confetti-container");
+  const emojis = ["🗳️", "✨", "⭐", "🎉", "🏆", "👏", "💫"];
+  
+  for (let i = 0; i < 15; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti-piece";
+    confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    confetti.style.left = Math.random() * 100 + "%";
+    confetti.style.top = "100%";
+    confetti.style.fontSize = (20 + Math.random() * 30) + "px";
+    confetti.style.animationDelay = Math.random() * 0.5 + "s";
+    container.appendChild(confetti);
+    
+    setTimeout(() => confetti.remove(), 2500);
+  }
+}
+
+function createCelebration() {
+  const emoji = celebrationEmojis[Math.floor(Math.random() * celebrationEmojis.length)];
+  const banner = document.createElement("div");
+  banner.className = "celebration-banner";
+  banner.textContent = emoji;
+  banner.style.left = (Math.random() * 80 + 10) + "%";
+  document.body.appendChild(banner);
+  
+  setTimeout(() => banner.remove(), 2000);
+}
+
+function floatingVoteAnimation() {
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => {
+      createCelebration();
+      createConfetti();
+    }, i * 300);
+  }
+}
+
+document.getElementById("issueBtn").onclick = () => {
+  const id = document.getElementById("studentId").value.trim().toUpperCase();
+  if (!id) {
+    showAlert("eligibilityMsg", "❌ Student ID cannot be empty", "error");
+    return;
+  }
+  if (!state.registry.has(id)) {
+    showAlert("eligibilityMsg", "❌ Student ID not in registry", "error");
+    return;
+  }
+  if (!state.electionOpen) {
+    showAlert("eligibilityMsg", "❌ Election is closed", "error");
+    return;
+  }
+  if (state.issued.has(id) && state.spent.has(state.issued.get(id))) {
+    showAlert("eligibilityMsg", "❌ Already voted", "error");
+    return;
+  }
+  
+  let c = state.issued.get(id) || token();
+  state.issued.set(id, c);
+  document.getElementById("cred").textContent = c;
+  document.getElementById("ballot").classList.remove("hidden");
+  showAlert("eligibilityMsg", "✓ Credential issued", "success");
+};
+
+document.getElementById("castBtn").onclick = () => {
+  const id = document.getElementById("studentId").value.trim().toUpperCase();
+  const c = state.issued.get(id);
+  
+  if (!c) {
+    showAlert("castMsg", "❌ Get credential first", "error");
+    return;
+  }
+  
+  const votes = {};
+  let allFilled = true;
+  Object.keys(positions).forEach(position => {
+    const choice = document.querySelector(`input[name='${position}']:checked`)?.value;
+    if (!choice) allFilled = false;
+    votes[position] = choice;
+  });
+  
+  if (!allFilled) {
+    showAlert("castMsg", "❌ Select candidates for all positions", "error");
+    return;
+  }
+  
+  const tracker = token() + Date.now();
+  state.board.push({ votes, tracker });
+  state.spent.add(c);
+  
+  document.getElementById("tracker").textContent = tracker;
+  document.getElementById("receipt").classList.remove("hidden");
+  showAlert("castMsg", "✓ Vote cast successfully!", "success");
+  
+  // Update stats immediately
+  updateStats();
+  updateStatusBox();
+  
+  // Auto-refresh the voters board and clear form after 2 seconds
+  setTimeout(() => {
+    document.getElementById("studentId").value = "";
+    document.getElementById("ballot").classList.add("hidden");
+    document.getElementById("receipt").classList.add("hidden");
+    document.getElementById("eligibilityMsg").innerHTML = "";
+    document.getElementById("castMsg").innerHTML = "";
+    
+    // Reset all radio buttons
+    document.querySelectorAll("input[type='radio']").forEach(radio => radio.checked = false);
+    
+    // Auto-switch to board tab if vote was successful
+    const boardTab = document.querySelector('.tab-btn:nth-child(2)');
+    if (boardTab) {
+      boardTab.classList.add("active");
+      document.getElementById("board").classList.add("active");
+      document.getElementById("student").classList.remove("active");
+      document.querySelector('.tab-btn:nth-child(1)').classList.remove("active");
+      
+      // Trigger animations on the live board
+      setTimeout(() => {
+        floatingVoteAnimation();
+      }, 500);
+    }
+  }, 2000);
+};
+
+document.getElementById("searchBtn").onclick = () => {
+  const tracker = document.getElementById("trackerSearch").value.trim();
+  const vote = state.board.find(b => b.tracker === tracker);
+  
+  if (vote) {
+    let details = "✓ Found! Votes:<br>";
+    Object.keys(vote.votes).forEach(pos => {
+      details += `<strong>${positionLabels[pos]}:</strong> ${vote.votes[pos]}<br>`;
+    });
+    showAlert("searchResult", details, "success");
+  } else {
+    showAlert("searchResult", "❌ Tracker not found", "error");
+  }
+};
+
+document.getElementById("refreshBoardBtn").onclick = () => {
+  updateStats();
+  floatingVoteAnimation();
+};
+
+function updateStats() {
+  const totalVotes = state.board.length;
+  
+  // Update total votes display
+  document.getElementById("totalVotesDisplay").textContent = totalVotes + " Vote" + (totalVotes !== 1 ? "s" : "");
+  
+  let html = ``;
+  
+  Object.keys(positions).forEach(position => {
+    const candidates = positions[position];
+    const count = {};
+    candidates.forEach(c => count[c] = 0);
+    state.board.forEach(b => {
+      if (b.votes && b.votes[position]) count[b.votes[position]]++;
+    });
+    
+    const sorted = candidates.slice().sort((a, b) => count[b] - count[a]);
+    const winner = sorted[0] || "N/A";
+    const runnerUp = sorted[1] || "N/A";
+    const runnerUpVotes = count[runnerUp] || 0;
+    
+    const winnerVotes = count[winner] || 0;
+    const maxVotes = Math.max(...candidates.map(c => count[c]));
+    const percentage = maxVotes > 0 ? Math.round((winnerVotes / maxVotes) * 100) : 0;
+    
+    html += `<div style="background:var(--panel);border:2px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px" class="position-card">
+      <div style="font-weight:800;color:var(--accent);margin-bottom:12px">${positionLabels[position]}</div>
+      <div style="color:var(--success);margin-bottom:8px;font-weight:700">🏆 Winner: ${winner}</div>
+      <div style="color:var(--text-muted);margin-bottom:12px">Class: ${candidateClass[winner]}</div>
+      <div style="background:linear-gradient(90deg, var(--primary), var(--secondary));height:8px;border-radius:4px;margin:10px 0;overflow:hidden">
+        <div style="width:${percentage}%;height:100%;background:linear-gradient(90deg, var(--accent), var(--warning));animation: slideInUp 0.6s ease-out"></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">${winnerVotes} Vote${winnerVotes !== 1 ? 's' : ''} (${percentage}%)</div>
+      ${runnerUp !== "N/A" ? `<div style="background:rgba(245,158,11,0.1);border:2px solid var(--warning);border-radius:8px;padding:12px;margin-top:8px;color:var(--warning)">🥈 Runner-Up: ${runnerUp} (${runnerUpVotes} votes) - Class: ${candidateClass[runnerUp]}</div>` : ""}
+    </div>`;
+  });
+  
+  document.getElementById("statsContent").innerHTML = html;
+}
+
+document.getElementById("unlockBtn").onclick = () => {
+  if (document.getElementById("adminPass").value === ADMIN_PASSWORD) {
+    document.getElementById("adminLock").classList.add("hidden");
+    document.getElementById("adminPanel").classList.remove("hidden");
+  } else {
+    showAlert("authMsg", "❌ Wrong password", "error");
+  }
+};
+
+document.getElementById("lockBtn").onclick = () => {
+  document.getElementById("adminPanel").classList.add("hidden");
+  document.getElementById("adminLock").classList.remove("hidden");
+  document.getElementById("adminPass").value = "";
+};
+
+document.getElementById("closeBtn").onclick = () => {
+  if (state.electionOpen) {
+    state.electionOpen = false;
+    showAlert("adminMsg", "✓ Election closed", "success");
+    updateStatusBox();
+  }
+};
+
+document.getElementById("tallyBtn").onclick = () => {
+  if (state.electionOpen) {
+    showAlert("adminMsg", "❌ Close election first", "error");
+    return;
+  }
+  
+  document.getElementById("results").innerHTML = "";
+  Object.keys(positions).forEach(position => {
+    const candidates = positions[position];
+    const count = {};
+    candidates.forEach(c => count[c] = 0);
+    state.board.forEach(b => {
+      if (b.votes && b.votes[position]) count[b.votes[position]]++;
+    });
+    
+    const sorted = candidates.slice().sort((a, b) => count[b] - count[a]);
+    let html = `<div style="background:var(--panel);border:2px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px">
+      <div style="font-weight:800;color:var(--accent);margin-bottom:12px">${positionLabels[position]}</div>`;
+    
+    candidates.forEach(candidate => {
+      html += `<div style="display:flex;justify-content:space-between;padding:8px;background:var(--bg-light);margin-bottom:8px;border-radius:6px">
+        <div>${candidate}<div style="font-size:12px;color:var(--text-muted)">Class: ${candidateClass[candidate]}</div></div>
+        <div style="font-weight:800">${count[candidate]}</div>
+      </div>`;
+    });
+    
+    const winner = sorted[0];
+    const runnerUp = sorted[1];
+    html += `<div style="background:rgba(16,185,129,0.1);border:2px solid var(--success);border-radius:8px;padding:12px;margin-top:8px;color:var(--success)">
+      🏆 WINNER: ${winner} (Class: ${candidateClass[winner]})
+    </div>`;
+    
+    if (runnerUp) {
+      html += `<div style="background:rgba(245,158,11,0.1);border:2px solid var(--warning);border-radius:8px;padding:12px;margin-top:8px;color:var(--warning)">
+        🥈 RUNNER-UP: ${runnerUp} - ${count[runnerUp]} votes (Class: ${candidateClass[runnerUp]})
+      </div>`;
+    }
+    
+    html += `</div>`;
+    document.getElementById("results").innerHTML += html;
+  });
+  
+  document.getElementById("resultsSection").classList.remove("hidden");
+  showAlert("adminMsg", "✓ Results tallied", "success");
+};
+
+document.getElementById("auditBtn").onclick = () => {
+  document.getElementById("auditLog").classList.toggle("hidden");
+  if (!document.getElementById("auditLog").classList.contains("hidden")) {
+    let html = "";
+    state.auditLog.forEach(log => {
+      html += `<div style="background:var(--bg-light);padding:12px;margin-bottom:8px;border-radius:6px;border-left:4px solid var(--primary)">
+        <div style="font-weight:800;font-size:12px">${log.timestamp}</div>
+        <div style="color:var(--primary);margin-top:4px">${log.action}</div>
+        <div style="color:var(--text-muted);font-size:12px">${log.details}</div>
+      </div>`;
+    });
+    document.getElementById("auditContent").innerHTML = html || '<div class="muted">No events</div>';
+  }
+};
+
+document.getElementById("resetBtn").onclick = () => {
+  if (confirm("⚠️ Reset system? This cannot be undone!")) {
+    state.electionOpen = true;
+    state.issued.clear();
+    state.spent.clear();
+    state.board = [];
+    state.auditLog = [];
+    document.getElementById("studentId").value = "";
+    document.getElementById("ballot").classList.add("hidden");
+    document.getElementById("receipt").classList.add("hidden");
+    updateStatusBox();
+    updateStats();
+    showAlert("adminMsg", "✓ System reset", "success");
+  }
+};
+
+updateStatusBox();
+updateStats();
+</script>
+
+</body></html>
