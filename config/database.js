@@ -9,17 +9,15 @@ const pool = new Pool({
   database: process.env.DB_NAME || 'voting_system',
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
-  max: 20, // connection pool size
+  max: 20,
 });
 
 pool.on('error', (err) => {
   console.error('Unexpected error on idle client', err);
 });
 
-// Initialize database schema
 async function initializeDatabase() {
   try {
-    // Students table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS students (
         id VARCHAR(50) PRIMARY KEY,
@@ -34,7 +32,6 @@ async function initializeDatabase() {
       CREATE INDEX IF NOT EXISTS idx_students_email ON students(email);
     `);
 
-    // Admin users table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS admins (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -47,7 +44,6 @@ async function initializeDatabase() {
       CREATE INDEX IF NOT EXISTS idx_admins_email ON admins(email);
     `);
 
-    // OTP table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS otps (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -62,7 +58,6 @@ async function initializeDatabase() {
       CREATE INDEX IF NOT EXISTS idx_otps_expires_at ON otps(expires_at);
     `);
 
-    // Credentials table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS credentials (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -81,7 +76,6 @@ async function initializeDatabase() {
       CREATE INDEX IF NOT EXISTS idx_credentials_expires_at ON credentials(expires_at);
     `);
 
-    // Votes table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS votes (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -101,7 +95,6 @@ async function initializeDatabase() {
       CREATE INDEX IF NOT EXISTS idx_votes_credential_id ON votes(credential_id);
     `);
 
-    // Vote tracking table (for anonymity)
     await pool.query(`
       CREATE TABLE IF NOT EXISTS vote_tracking (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -113,7 +106,6 @@ async function initializeDatabase() {
       CREATE INDEX IF NOT EXISTS idx_vote_tracking_tracker_token ON vote_tracking(tracker_token);
     `);
 
-    // Audit log table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS audit_log (
         id BIGSERIAL PRIMARY KEY,
@@ -139,7 +131,6 @@ async function initializeDatabase() {
       CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log(action);
     `);
 
-    // Election configuration table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS elections (
         id VARCHAR(50) PRIMARY KEY DEFAULT 'current',
@@ -152,7 +143,6 @@ async function initializeDatabase() {
       );
     `);
 
-    // Results table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS results (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

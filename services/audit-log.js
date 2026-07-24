@@ -2,11 +2,6 @@ const crypto = require('crypto');
 const db = require('../config/database');
 
 class ImmutableAuditLog {
-  /**
-   * Log event with hash chain for immutability
-   * @param {Object} event - Event to log
-   * @returns {Object} Audit log entry
-   */
   async log(event) {
     const client = await db.pool.connect();
 
@@ -27,7 +22,6 @@ class ImmutableAuditLog {
         userAgent,
       } = event;
 
-      // Get previous log entry for hash chain
       const previousLog = await client.query(
         'SELECT hash_chain FROM audit_log ORDER BY id DESC LIMIT 1'
       );
@@ -35,7 +29,6 @@ class ImmutableAuditLog {
       const previousHash =
         previousLog.rows[0]?.hash_chain || '0'.repeat(64);
 
-      // Create hash chain
       const logString = JSON.stringify({
         action,
         actorId,
@@ -51,7 +44,6 @@ class ImmutableAuditLog {
         .update(logString + previousHash)
         .digest('hex');
 
-      // Insert audit log entry
       const result = await client.query(
         `INSERT INTO audit_log (
           action, actor_id, actor_role, resource_type, resource_id,
@@ -87,10 +79,6 @@ class ImmutableAuditLog {
     }
   }
 
-  /**
-   * Verify audit trail integrity
-   * @returns {Boolean} True if integrity is valid
-   */
   async verify() {
     try {
       const logs = await db.query(
@@ -116,12 +104,6 @@ class ImmutableAuditLog {
     }
   }
 
-  /**
-   * Generate audit report
-   * @param {Date} startDate - Report start date
-   * @param {Date} endDate - Report end date
-   * @returns {Object} Audit report with integrity hash
-   */
   async generateReport(startDate, endDate) {
     try {
       const logs = await db.query(
@@ -139,7 +121,6 @@ class ImmutableAuditLog {
         integrityValid: await this.verify(),
       };
 
-      // Sign report
       const reportHash = crypto
         .createHash('sha256')
         .update(JSON.stringify(reportData))
@@ -155,12 +136,6 @@ class ImmutableAuditLog {
     }
   }
 
-  /**
-   * Get audit trail for a specific resource
-   * @param {String} resourceType - Type of resource
-   * @param {String} resourceId - ID of resource
-   * @returns {Array} Audit trail entries
-   */
   async getResourceAuditTrail(resourceType, resourceId) {
     try {
       const result = await db.query(

@@ -10,11 +10,6 @@ class VoteEncryption {
     );
   }
 
-  /**
-   * Encrypt vote data using AES-256-GCM
-   * @param {Object} voteData - The vote data to encrypt
-   * @returns {Object} Encrypted data with iv and authTag
-   */
   encrypt(voteData) {
     try {
       const iv = crypto.randomBytes(16);
@@ -36,11 +31,6 @@ class VoteEncryption {
     }
   }
 
-  /**
-   * Decrypt vote data using AES-256-GCM
-   * @param {Object} encryptedData - The encrypted vote data
-   * @returns {Object} Decrypted vote data
-   */
   decrypt(encryptedData) {
     try {
       const decipher = crypto.createDecipheriv(
@@ -61,29 +51,14 @@ class VoteEncryption {
     }
   }
 
-  /**
-   * Generate secure random token
-   * @param {Number} length - Token length in bytes
-   * @returns {String} Secure random token
-   */
   generateSecureToken(length = 32) {
     return crypto.randomBytes(length).toString('hex').toUpperCase();
   }
 
-  /**
-   * Hash token for storage (one-way)
-   * @param {String} token - Token to hash
-   * @returns {String} SHA-256 hash
-   */
   hashToken(token) {
     return crypto.createHash('sha256').update(token).digest('hex');
   }
 
-  /**
-   * Generate cryptographic proof for votes
-   * @param {Object} voteData - Vote data to create proof for
-   * @returns {Object} Integrity proofs
-   */
   createIntegrityProof(voteData) {
     const dataString = JSON.stringify(voteData);
 
@@ -116,12 +91,6 @@ class VoteEncryption {
     };
   }
 
-  /**
-   * Verify integrity of vote data
-   * @param {Object} voteData - Original vote data
-   * @param {Object} proof - Integrity proof to verify against
-   * @returns {Object} Verification results
-   */
   verifyIntegrity(voteData, proof) {
     const newProof = this.createIntegrityProof(voteData);
 
