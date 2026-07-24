@@ -1,0 +1,35 @@
+{
+  "name": "student-trust-voting-system",
+  "version": "2.0.0",
+  "description": "Secure school e-voting system with cryptographic verification",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "test": "mocha tests/**/*.test.js",
+    "setup-db": "node scripts/setup-database.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.7.0",
+    "express-validator": "^7.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "pg": "^8.11.0",
+    "pg-pool": "^3.6.1",
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.0",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "mocha": "^10.2.0",
+    "chai": "^4.3.7",
+    "sinon": "^15.2.0",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
